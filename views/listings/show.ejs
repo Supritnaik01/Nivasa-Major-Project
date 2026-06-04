@@ -14,12 +14,14 @@
     </div>
     </div>
 <div class="row mb-3 mt-3">
-   <div class="col-1"><a href="/listings/<%=listing._id%>/edit" class="btn btn-dark listing-btns ">Edit</a></div>
+
+ <div class="col-1"><a href="/listings/<%=listing._id%>/edit" class="btn btn-dark listing-btns ">Edit</a></div>
  <div class="col-1">
-   <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
-    <button class="btn btn-dark ">Delete</button>
-</form>
+            <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+            <button class="btn btn-dark ">Delete</button>
+            </form>
 </div>
+
 </div>
    </div></div>
 </body>
