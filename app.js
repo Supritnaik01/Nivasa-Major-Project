@@ -5,6 +5,8 @@ const mongoose=require("mongoose");
 const Listing=require("./models/listing.js");
 const methodOverride=require("method-override");
 const ejsMate=require("ejs-mate");
+const wrapAsync=require("./utils/wrapAsync.js");
+const ExpressError=require("./utils/ExpressError.js");
 
 
 let MONGO_URL="mongodb://127.0.0.1:27017/nivasa";
@@ -24,46 +26,63 @@ app.get("/",(req,res)=>{
     res.send("welcome to root");
 });
 //display all
-app.get("/listings",async (req,res)=>{
+app.get("/listings", wrapAsync(async (req,res)=>{
     let listings=await Listing.find();
       res.render("listings/home.ejs",{listings});
-});
+}));
 //new
-app.get("/listings/new",async (req,res)=>{
+app.get("/listings/new", (req,res)=>{
       res.render("listings/new.ejs");
 });
 //save
-app.post("/listings",async (req,res)=>{
+app.post("/listings",wrapAsync(async (req,res)=>{
+    if(!req.body  || !req.body.listing){
+    throw(new ExpressError(400,"Enter valid Data"));
+   }
    let l1=  new Listing({...req.body.listing});
     await l1.save();
     res.redirect("/listings");
-});
+}));
 
 
 //show
-app.get("/listings/:id",async (req,res)=>{
+app.get("/listings/:id",wrapAsync(async (req,res)=>{
     let {id}=req.params;
     let listing=await Listing.findById(id);
       res.render("listings/show.ejs",{listing});
-});
+}));
 
 //edit
-app.get("/listings/:id/edit",async (req,res)=>{
+app.get("/listings/:id/edit",wrapAsync(async (req,res)=>{
     let {id}=req.params;
     let listing=await Listing.findById(id);
     res.render("listings/edit.ejs",{listing});
-});
-app.delete("/listings/:id",async (req,res)=>{
+}));
+//delete
+app.delete("/listings/:id",wrapAsync(async (req,res)=>{
    let {id}=req.params;
    await Listing.deleteOne({_id:id});
     res.redirect("/listings");
-});
-app.put("/listings/:id",async (req,res)=>{
+}));
+//update
+app.put("/listings/:id",wrapAsync(async (req,res)=>{
 let {id}=req.params;
+  if(!req.body  || !req.body.listing){
+    throw(new ExpressError(400,"Enter Valid Data"));
+   }
 await Listing.updateOne({_id:id},{...req.body.listing});
 res.redirect("/listings");
+}));
+
+app.all("/{*splat}",(req,res,next)=>{
+ next(new ExpressError(404,"page not found"));
 });
 
+app.use((err, req,res,next)=>{
+    let {statusCode=500,message="something went wrong"}=err;
+    res.status(statusCode).render("error.ejs",{message});
+    
+});
 app.listen(8080,()=>{
     console.log("server is listening..");
 });
