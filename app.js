@@ -84,6 +84,14 @@ app.put("/listings/:id",validateListing,wrapAsync(async (req,res)=>{
     await Listing.updateOne({_id:id},{...req.body.listing});
     res.redirect("/listings");
 }));
+  
+  app.post("/listings/:id/review",(req,res)=>{
+   let listing=Listing.findById(req.params.id);
+   let newReview=req.body.review;
+   console.log(newReview);
+//    console.log(req.body.rating);
+
+  });
 
   app.all("/{*splat}",(req,res,next)=>{
     next(new ExpressError(404,"page not found"));
