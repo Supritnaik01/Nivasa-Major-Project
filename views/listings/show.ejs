@@ -29,7 +29,7 @@
 
     <div class=" col-9 mt-3 " >
         <!-- class rating-container -->
-       <form action="/listings/<%= listing._id %>/review" method="post">
+       <form action="/listings/<%= listing._id %>/review" method="post" novalidate class="needs-validation">
 
         <label class="rating-label">Rate this property</label>
   
@@ -51,13 +51,19 @@
   <label for="5star" class="star">★</label>
 </div>
 
-<textarea class="review-text" placeholder="Share your experience..." maxlength="500" name="review[comment]" rows="9"></textarea>
+     <div class="mb-3">
+            <!-- <label for="description" class="form-label">description</label> -->
+            <textarea  placeholder="Share your experience..." maxlength="500" name="review[comment]" rows="9" class="form-control review-text" required></textarea>
+ <div class="invalid-feedback">
+      Please leave a valid comment.
+    </div></div>
 
 <button type="submit" class="rating-btn" disabled>Submit</button>
        </form>
-    </div>
+    </div></div>
   
 
  </div>
+ <script src="/js/form-validator.js"></script>
  <script src="/js/rating.js"></script>
 </body>

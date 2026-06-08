@@ -7,7 +7,7 @@ const methodOverride=require("method-override");
 const ejsMate=require("ejs-mate");
 const wrapAsync=require("./utils/wrapAsync.js");
 const ExpressError=require("./utils/ExpressError.js");
-const listingSchema=require("./schema.js");
+const {listingSchema,reviewSchema}=require("./schema.js");
 
 
 let MONGO_URL="mongodb://127.0.0.1:27017/nivasa";
@@ -26,6 +26,16 @@ app.use(express.static(path.join(__dirname,"/public")));
 
 const validateListing=(req,res,next)=>{
     let {error}=listingSchema.validate(req.body);
+    if(error){
+      let errorMsg=error.details.map((el)=>el.message).join(",");
+      throw(new ExpressError(400,errorMsg));
+    }else{
+      next();
+    }
+ };
+
+ const validateReview=(req,res,next)=>{
+    let {error}=reviewSchema.validate(req.body);
     if(error){
       let errorMsg=error.details.map((el)=>el.message).join(",");
       throw(new ExpressError(400,errorMsg));
@@ -85,7 +95,7 @@ app.put("/listings/:id",validateListing,wrapAsync(async (req,res)=>{
     res.redirect("/listings");
 }));
   
-  app.post("/listings/:id/review",(req,res)=>{
+  app.post("/listings/:id/review",validateReview,(req,res)=>{
    let listing=Listing.findById(req.params.id);
    let newReview=req.body.review;
    console.log(newReview);
