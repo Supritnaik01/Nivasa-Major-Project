@@ -3,6 +3,7 @@ const app=express();
 const path=require("path");
 const mongoose=require("mongoose");
 const Listing=require("./models/listing.js");
+const Review=require("./models/review.js");
 const methodOverride=require("method-override");
 const ejsMate=require("ejs-mate");
 const wrapAsync=require("./utils/wrapAsync.js");
@@ -70,7 +71,7 @@ app.post("/listings",validateListing,wrapAsync(async (req,res)=>{
 //show
 app.get("/listings/:id",wrapAsync(async (req,res)=>{
     let {id}=req.params;
-    let listing=await Listing.findById(id);
+    let listing=await Listing.findById(id).populate("reviews");
     res.render("listings/show.ejs",{listing});
 }));
 
@@ -94,14 +95,20 @@ app.put("/listings/:id",validateListing,wrapAsync(async (req,res)=>{
     await Listing.updateOne({_id:id},{...req.body.listing});
     res.redirect("/listings");
 }));
+  //save review
+  app.post("/listings/:id/review",validateReview,wrapAsync(async (req,res)=>{
+    let id=req.params.id;
+   let listing=await Listing.findById(id);
+   let newReview=new Review(req.body.review);
   
-  app.post("/listings/:id/review",validateReview,(req,res)=>{
-   let listing=Listing.findById(req.params.id);
-   let newReview=req.body.review;
-   console.log(newReview);
-//    console.log(req.body.rating);
-
-  });
+     listing.reviews.push(newReview);
+     
+ 
+  await  newReview.save();
+   await listing.save();
+   res.redirect(`/listings/${id}`);
+  }
+));
 
   app.all("/{*splat}",(req,res,next)=>{
     next(new ExpressError(404,"page not found"));
@@ -109,6 +116,7 @@ app.put("/listings/:id",validateListing,wrapAsync(async (req,res)=>{
 
   app.use((err, req,res,next)=>{
     let {statusCode=500,message="something went wrong"}=err;
+    //  console.log(err);
     res.status(statusCode).render("error.ejs",{message}); 
   });
 app.listen(8080,()=>{

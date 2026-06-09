@@ -33,11 +33,11 @@ const listingSchema=new schema({
         type:String,
         required:true
     },
-    review:{
+    reviews:[{
         type:schema.Types.ObjectId,
         ref:"Review"
 
-    }
+    }]
 });
 const listing=mongoose.model("listing",listingSchema);
 module.exports=listing;

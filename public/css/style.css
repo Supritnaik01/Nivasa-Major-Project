@@ -226,3 +226,68 @@ a{
  display: none;
 }
 
+/* review */
+.reviews-section {
+    margin-top: 3rem;
+    padding: 2rem;
+    background-color: #FAFAF8;
+    border-radius: 8px;
+  }
+
+  .reviews-section h2 {
+    color: #1A2E2F;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+  }
+
+  .reviews-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .review-card {
+    background-color: white;
+    /* padding: 1.5rem; */
+    border-radius: 6px;
+    border-left: 4px solid #0D7377;
+  }
+
+  /* .review-header {
+    margin-bottom: 1rem;
+  } */
+
+  .review-stars {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .star {
+    font-size: 1.2rem;
+    color: #9FE1CB;
+  }
+
+  .star.filled {
+    color: #0D7377;
+  }
+
+  .review-rating {
+    font-size: 0.9rem;
+    color: #1A2E2F;
+    margin-left: 0.5rem;
+    font-weight: 600;
+  }
+
+  .review-comment {
+    color: #1A2E2F;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .no-reviews {
+    color: #1A2E2F;
+    font-style: italic;
+    text-align: center;
+    padding: 2rem;
+  }

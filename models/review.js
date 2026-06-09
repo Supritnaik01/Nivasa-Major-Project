@@ -1,5 +1,5 @@
 const mongoose=require("mongoose");
-const { type } = require("../schema");
+// const { type } = require("../schema");
 const schema=mongoose.Schema;
 const reviewSchema=new schema({
     comment:String,
