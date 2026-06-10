@@ -1,7 +1,6 @@
 <% layout("/layouts/boilerplate.ejs")%>
 <body>
-    <div class="row offset-xl-2 offset-lg-1">
-    
+    <div class="row offset-xl-2 offset-lg-1">    
     <div class="col-xl-9 col-lg-10">
        <h2 style="color: #1A2E2F;"><%=listing.title%></h2>
        <div class="card show-card" >
@@ -69,7 +68,7 @@
 <div class="row ">
 <%for(review of listing.reviews){%>
    <!-- <h6><%=review%></h6> -->
-  <div class="col-md-6 my-2">
+  <div class="col-md-6 my-2 ">
     
      <div class="review-card card">
          
@@ -78,7 +77,7 @@
             <h5 class="card-title">Card title</h5>
             <div class="review-stars">
               <% for (let i = 1; i <= 5; i++) { %>
-                <span class="star <%= i <= review.rating ? 'filled' : 'empty' %>">★</span>
+                <span class="review-star <%= i <= review.rating ? 'filled' : 'empty' %>">★</span>
               <% } %>
               <span class="review-rating"><%= review.rating %>/5</span>
             </div>
@@ -86,7 +85,10 @@
           
           <!-- Review Comment -->
           <p class="review-comment card-text"><%= review.comment %></p>
-        </div></div>
+         <form action="/listings/<%=listing._id%>/review/<%=review._id%>?_method=delete" method="post">
+          <button class="btn btn-dark">delete</button>
+          </form>
+        </div> </div>
 
 </div>
 
