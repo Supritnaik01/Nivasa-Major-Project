@@ -8,6 +8,7 @@ module.exports.renderAllListings=async (req,res)=>{
 module.exports.renderCreateNewForm=(req,res)=>{
       res.render("listings/new.ejs");
 }
+
 module.exports.saveListing=async (req,res)=>{
     let l1=  new Listing({...req.body.listing});
     l1.owner=req.user._id;
@@ -15,6 +16,7 @@ module.exports.saveListing=async (req,res)=>{
     req.flash("successMsg","new listing added");
     res.redirect("/listings");
 }
+
 module.exports.showListing=async (req,res)=>{
     let {id}=req.params;
     let listing=await Listing.findById(id).populate({path:"reviews",populate:{path:"author"}}).populate("owner");
@@ -25,21 +27,23 @@ module.exports.showListing=async (req,res)=>{
          res.redirect("/listings");
     }
 }
+
 module.exports.renderEditForm=async (req,res)=>{
     let {id}=req.params;
     let listing=await Listing.findById(id);
-if(listing){
-    res.render("listings/edit.ejs",{listing});
-}else{
-     req.flash("error","Unable to find listing id");
+    if(listing){
+        res.render("listings/edit.ejs",{listing});
+    }else{
+      req.flash("error","Unable to find listing id");
       res.redirect("/listings");
-}
+    }
 }
 module.exports.updateListing=async (req,res)=>{
     let {id}=req.params;
     await Listing.updateOne({_id:id},{...req.body.listing});
     res.redirect("/listings");
 }
+
 module.exports.deleteListing=async (req,res)=>{
    let {id}=req.params;
    await Listing.findOneAndDelete({_id:id});
