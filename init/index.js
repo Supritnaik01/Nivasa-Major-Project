@@ -9,6 +9,8 @@ async function main(){
 }
 async function init(){
     await Listing.deleteMany({});
+    initData.data=initData.data.map((el)=>({...el,owner:'6a316a690d393f219f109a8d'}));
+    // console.log(initData.data);
    await Listing.insertMany(initData.data);
 }
 init();
