@@ -40,6 +40,7 @@ let sessionOption={
         httpOnly:true
     }
 };
+
 app.get("/",(req,res)=>{
     res.send("welcome to root");
 });
