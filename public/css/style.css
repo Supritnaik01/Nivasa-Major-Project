@@ -16,6 +16,7 @@ a{
     margin-block: 1rem;
     flex: 1;
 }
+/* nav bar */
 .navbar-brand img {
     width: 12rem;
     height: auto;
@@ -27,18 +28,26 @@ a{
     color: #FAFAF8;
     font-size: 1.25rem;
     font-weight: 450;
-    /* background-color: #F5E6C8; */
+    
 }
-/* .nav-link.active{
-    color: #9FE1CB !important;
-} */
+
 .navbar{
     height: 6rem;
     background-color: #0D7377;
     color: #F5E6C8;
 }
+.navbar-collapse {
+    background-color: #0D7377;
+    transition: none;
+}
+.navbar-collapse.collapse.show .navbar-nav{
+    padding: 0;
+    margin-left: 12px !important;
+     background-color: #0D7377;
+    color: #F5E6C8;
+}
 
-
+/* show all listing */
 .container-card {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -48,17 +57,25 @@ a{
 .listing-card{
     width: 100%;
      border-radius: 0.5rem;
-     /* height: 26rem; */
+     height: 386px;
     overflow: hidden;
     background-color: #fff;
 }
-#card-title{
+/* #card-title{
     color:#0D7377 !important;
     font-weight: 500;
     
-}
+} */
 .listing-card-body{
     background-color: #FAFAF8;
+      overflow: hidden;
+}
+.listing-card-title{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color:#0D7377 ;
+  font-weight: 500;
 }
 .listing-card-img{
     height: 18rem;
@@ -69,6 +86,9 @@ a{
 }
 .listing-card:hover{
     opacity: 0.8;
+    position: relative;
+    top: -2px;
+    right: -2px;
    
 }
 /* footer */
@@ -135,7 +155,7 @@ a{
   }
   .show-image{
     height: 33rem;
-    object-fit: fill;
+    object-fit: cover;
     border-radius: 0.5rem;
   }
   .show-card{

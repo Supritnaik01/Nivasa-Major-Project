@@ -10,7 +10,10 @@ module.exports.renderCreateNewForm=(req,res)=>{
 }
 
 module.exports.saveListing=async (req,res)=>{
+    
     let l1=  new Listing({...req.body.listing});
+    l1.image.url=req.file.path;
+    l1.image.filename=req.file.filename;
     l1.owner=req.user._id;
     await l1.save();
     req.flash("successMsg","new listing added");
@@ -40,7 +43,14 @@ module.exports.renderEditForm=async (req,res)=>{
 }
 module.exports.updateListing=async (req,res)=>{
     let {id}=req.params;
-    await Listing.updateOne({_id:id},{...req.body.listing});
+    let listing=await Listing.findByIdAndUpdate(id,{...req.body.listing},{ new: true });
+
+    if(typeof req.file != "undefined"){
+        let url=req.file.path;
+        let filename=req.file.filename;
+        listing.image={url,filename};
+        await listing.save();
+    }
     res.redirect("/listings");
 }
 
