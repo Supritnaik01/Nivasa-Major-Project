@@ -1,4 +1,8 @@
 <% layout("/layouts/boilerplate.ejs")%>
+<script>
+  const lat=<%=listing.coordinates.lat%>
+  const lon=<%=listing.coordinates.lon%>
+</script>
 <body>
     <div class="row offset-xl-2 offset-lg-1">    
     <div class="col-xl-9 col-lg-10">
@@ -27,9 +31,17 @@
 </div>
 <%}%>
  </div>
+  
+    <div class="col-xl-9 col-lg-10 mt-3">
+      <hr><br>
+      <h2>Where you’ll be</h2>
+        <div id="map"></div>
+    </div>
+
 
 <!-- review listing -->
     <div class="col-xl-9 col-lg-10 mt-3 " >
+      <hr>
         <!-- class rating-container -->
        <form action="/listings/<%= listing._id %>/review" method="post" novalidate class="needs-validation">
 
@@ -105,4 +117,5 @@
   </div>
  <script src="/js/form-validator.js"></script>
  <script src="/js/rating.js"></script>
+ <script src="/js/map.js"></script>
 </body>

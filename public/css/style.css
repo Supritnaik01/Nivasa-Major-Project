@@ -321,3 +321,8 @@ a{
     /* display: inline; */
     text-align: center;
   }
+
+  /* map */
+  #map{
+    height: 350px;
+  }

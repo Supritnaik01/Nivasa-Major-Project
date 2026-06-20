@@ -19,8 +19,8 @@
             </div>
         </div>
         <div class="mb-3">
-            <label for="image" class="form-label">Upload Image</label>
-            <input placeholder="https://example.com/image.jpg" name="listing[image][url]" type="file" id="image"  >
+            <label for="image" class="form-label" >Upload Image</label>
+            <input placeholder="https://example.com/image.jpg" name="listing[image][url]" type="file" id="image"  required>
         </div>
         <div class="row">
         <div class="mb-3 col-md-5">
@@ -44,7 +44,11 @@
              <div class="invalid-feedback">
                 *Please enter a valid location
             </div>
-        </div><br>
+        </div> <br>
+        <div id="getLocation" style="height: 350px;"></div>
+        <input type="hidden" id="lat" name="listing[coordinates][lat]">
+        <input type="hidden" id="lng" name="listing[coordinates][lon]">
+        <br>
        
         <button class="btn  listing-btns">Add Listing</button>
     </form>
@@ -52,3 +56,4 @@
 </body>
 
 <script src="/js/form-validator.js"></script>
+<script src="/js/getLocation.js"></script>
