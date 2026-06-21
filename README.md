@@ -13,13 +13,9 @@ An Airbnb-inspired property listing and booking platform built with modern web t
 - [Tech Stack](#tech-stack)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
-- [Environment Variables](#environment-variables)
 - [Project Structure](#project-structure)
 - [Running the Application](#running-the-application)
-- [API Endpoints](#api-endpoints)
-- [Database Schema](#database-schema)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## ✨ Features
 
