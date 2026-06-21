@@ -57,6 +57,13 @@ module.exports.updateListing=async (req,res)=>{
 module.exports.deleteListing=async (req,res)=>{
    let {id}=req.params;
    await Listing.findOneAndDelete({_id:id});
-   req.flash("deleteMsg","Listing was deleted");
+   req.flash("error","Listing was deleted");
    res.redirect("/listings");
+}
+
+module.exports.showMyListing=async (req,res)=>{
+  
+    let {userid}=req.params;
+    let listings=await Listing.find({owner:userid});
+    res.render("listings/home.ejs",{listings});
 }

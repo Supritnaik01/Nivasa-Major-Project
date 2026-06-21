@@ -1,23 +1,25 @@
 <nav class="navbar navbar-expand-md  sticky-top border-bottom">
   <div class="container-fluid px-0">
-    <a class="navbar-brand ms-3" href="/"><img src="/assets/Nivasa_logo.jpg" alt="Nivasa" ></a>
+    <a class="navbar-brand ms-3" href="/listings"><img src="/assets/Nivasa_logo.jpg" alt="Nivasa" ></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link"  href="/">Home</a>
-        <a class="nav-link " href="/listings">All Listing</a>
-        <a class="nav-link " href="/listings/new">Add New Listing</a>
+        <a class="nav-link explore-text"  href="/listings" >Explore</a>
         
       </div>
        <div class="navbar-nav ms-auto">
+          <% if(currUser){ %>
+        <a class="nav-link explore-text"  href="/listings/myListings/<%=currUser._id%>" style="font-weight: 330;">My Listings</a>
+        <% } %>
+        <a class="nav-link " href="/listings/new" style="font-weight: 330;">Host your Nivasa</a>
        <% if(!currUser){ %>
-        <a class="nav-link "  href="/login">login</a>
-        <a class="nav-link " href="/signup">signup</a>
+        <a class="nav-link "  href="/login" style="font-weight: 530;">login</a>
+        <a class="nav-link " href="/signup" style="font-weight: 530;">signup</a>
        <% } %>
        <% if(currUser){ %>
-        <a class="nav-link " href="/logout">logout</a>
+        <a class="nav-link " href="/logout" style="font-weight: 500;">logout</a>
          <% } %>
       </div>
     </div>

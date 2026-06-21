@@ -28,7 +28,9 @@ a{
     color: #FAFAF8;
     font-size: 1.25rem;
     font-weight: 450;
-    
+}
+.explore-text:hover{
+    color:#F5E6C8;  
 }
 
 .navbar{
@@ -61,11 +63,6 @@ a{
     overflow: hidden;
     background-color: #fff;
 }
-/* #card-title{
-    color:#0D7377 !important;
-    font-weight: 500;
-    
-} */
 .listing-card-body{
     background-color: #FAFAF8;
       overflow: hidden;
@@ -113,6 +110,10 @@ a{
 .f-info-links a:hover{
     text-decoration: underline;
     color: #9FE1CB;
+}
+.f-info-socials a{
+    text-decoration: none;
+    color: #0D7377;
 }
 .f-info-socials i{
     margin-inline: 0.4rem;
