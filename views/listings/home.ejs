@@ -1,7 +1,8 @@
 <% layout("/layouts/boilerplate.ejs")%>
 <body>
-    <!-- <button><a href="/listings/new">create new listing</a></button> -->
 
+    <!-- <button><a href="/listings/new">create new listing</a></button> -->
+  <%-include("../includes/filters.ejs")%>
   <div class="container-card row">
     <%for(listing of listings){%>
         

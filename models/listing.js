@@ -52,7 +52,11 @@ const listingSchema=new schema({
         type:Number,
         required:true
      }
-    }
+    },
+    categories: [{
+    type: String,
+    enum: ['rooms', 'apartments', 'villas', 'beach', 'mountains', 'city', 'farms', 'camping','swimming','AC','metro','parking']
+  }]
 });
 listingSchema.post("findOneAndDelete",async (listing)=>{
     if(listing){

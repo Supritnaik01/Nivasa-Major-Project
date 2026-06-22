@@ -1,8 +1,16 @@
 const Listing=require("../models/listing.js");
 
 module.exports.renderAllListings=async (req,res)=>{
-      let listings=await Listing.find();
-      res.render("listings/home.ejs",{listings});
+ const { categories } = req.query;
+     let filter = {};
+
+    if (categories) {
+     const categoryArray = categories.split(',');
+     filter = { categories : { $all: categoryArray } };
+    }
+
+let listings = await Listing.find(filter);
+res.render("listings/home.ejs", { listings });
 }
 
 module.exports.renderCreateNewForm=(req,res)=>{

@@ -1,0 +1,107 @@
+<div id="filters">
+    <div class="filter">
+        <i class="fa-solid fa-bed"></i>
+        <p>rooms</p>
+    </div>
+
+    <div class="filter">
+        <i class="fa-solid fa-hotel"></i>
+        <p>apartments</p>
+    </div>
+
+    <div class="filter">   
+    <i class="fa-solid fa-place-of-worship"></i>
+        <p>villas</p>
+    </div>
+
+    <div class="filter">
+        <i class="fa-solid fa-umbrella-beach"></i>
+        <p>beach</p>
+    </div>
+
+    <div class="filter">
+        <i class="fa-solid fa-mountain-city"></i>
+        <p>mountains</p>
+    </div>
+
+    <div class="filter">
+        <i class="fa-solid fa-city"></i>
+        <p>city</p>
+    </div>
+
+    <div class="filter">
+        <i class="fa-solid fa-cow"></i>
+        <p>farms</p>
+    </div>
+
+    <div class="filter">
+       <i class="fa-solid fa-tent"></i>
+        <p>camping</p>
+    </div>
+
+    <div class="filter">
+        <i class="fa-solid fa-person-swimming"></i>
+        <p>swimming</p>
+    </div>
+
+    <div class="filter">
+        <i class="fa-solid fa-snowflake"></i>
+        <p>AC</p>
+    </div>
+
+      <div class="filter">
+        <i class="fa-solid fa-train"></i>
+        <p>metro</p>
+    </div>
+
+      <div class="filter">
+       <i class="fa-solid fa-square-parking"></i>
+        <p>parking</p>
+    </div>
+  </div>
+  <script>
+    const filterButtons = document.querySelectorAll('.filter');
+let selectedFilters = [];
+
+function restoreFilters() {
+  const params = new URLSearchParams(window.location.search);
+  const categoriesParam = params.get('categories');
+  
+  if (categoriesParam) {
+    selectedFilters = categoriesParam.split(',');
+    
+    // Mark buttons as active
+    filterButtons.forEach(button => {
+      const category = button.querySelector('p').textContent;
+      if (selectedFilters.includes(category)) {
+        button.classList.add('active');
+      }
+    });
+  }
+}
+
+// Call on load
+restoreFilters();
+
+filterButtons.forEach(button => {
+  button.addEventListener('click', function() {
+    const category = this.querySelector('p').textContent;
+    
+    // Toggle selection
+    if (selectedFilters.includes(category)) {
+      selectedFilters = selectedFilters.filter(c => c !== category);
+      this.classList.remove('active');
+    } else {
+      selectedFilters.push(category);
+      this.classList.add('active');
+    }
+    const queryString = selectedFilters.join(',');
+    const url = selectedFilters.length > 0 
+      ? `/listings?categories=${queryString}` 
+      : '/listings';
+    
+    window.location.href = url;
+  });
+});
+
+  </script>
