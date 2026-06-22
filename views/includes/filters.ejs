@@ -1,3 +1,4 @@
+<div class="filter-row" >
 <div id="filters">
     <div class="filter">
         <i class="fa-solid fa-bed"></i>
@@ -58,9 +59,16 @@
        <i class="fa-solid fa-square-parking"></i>
         <p>parking</p>
     </div>
+    
   </div>
+  <div class="clearAll " >
+        <button class="btn btn-dark clearAllBtn">Clear All</button>
+    </div>
+</div>
+
   <script>
     const filterButtons = document.querySelectorAll('.filter');
+    const clearAllBtn=document.querySelector('.clearAllBtn');
 let selectedFilters = [];
 
 function restoreFilters() {
@@ -82,8 +90,15 @@ function restoreFilters() {
 
 // Call on load
 restoreFilters();
+//clear All
+clearAllBtn.addEventListener('click',()=>{
+   selectedFilters = [];
+   const url = '/listings';
+    
+    window.location.href = url;
+})
 
-filterButtons.forEach(button => {
+const filter=filterButtons.forEach(button => {
   button.addEventListener('click', function() {
     const category = this.querySelector('p').textContent;
     
