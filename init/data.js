@@ -10,6 +10,7 @@ const sampleListings = [
     price: 1500,
     location: "Indiranagar",
     country: "India",
+    categories: ['beach', 'swimming'],
     coordinates: {
       lat: 12.9716,
       lon: 77.6412,
@@ -26,6 +27,7 @@ const sampleListings = [
     price: 1200,
     location: "Koramangala",
     country: "India",
+    categories: ['city', 'apartments', 'metro', 'parking'],
     coordinates: {
       lat: 12.9352,
       lon: 77.6245,
@@ -42,6 +44,7 @@ const sampleListings = [
     price: 1000,
     location: "Whitefield",
     country: "India",
+    categories: ['mountains', 'camping'],
     coordinates: {
       lat: 12.9698,
       lon: 77.7499,
@@ -58,6 +61,7 @@ const sampleListings = [
     price: 2500,
     location: "Electronic City",
     country: "India",
+    categories: ['villas', 'mountains'],
     coordinates: {
       lat: 12.8394,
       lon: 77.6718,
@@ -74,6 +78,7 @@ const sampleListings = [
     price: 800,
     location: "Marathahalli",
     country: "India",
+    categories: ['camping', 'farms'],
     coordinates: {
       lat: 12.9596,
       lon: 77.6997,
@@ -90,6 +95,7 @@ const sampleListings = [
     price: 2000,
     location: "Yelahanka",
     country: "India",
+    categories: ['beach', 'apartments', 'swimming'],
     coordinates: {
       lat: 13.0699,
       lon: 77.6122,
@@ -106,6 +112,7 @@ const sampleListings = [
     price: 900,
     location: "Jayanagar",
     country: "India",
+    categories: ['camping', 'swimming'],
     coordinates: {
       lat: 12.9352,
       lon: 77.5981,
@@ -122,6 +129,7 @@ const sampleListings = [
     price: 3500,
     location: "Hebbal",
     country: "India",
+    categories: ['apartments', 'city', 'AC', 'parking'],
     coordinates: {
       lat: 13.1865,
       lon: 77.5887,
@@ -138,6 +146,7 @@ const sampleListings = [
     price: 3000,
     location: "Malleswaram",
     country: "India",
+    categories: ['mountains', 'camping', 'AC'],
     coordinates: {
       lat: 13.0010,
       lon: 77.5757,
@@ -154,6 +163,7 @@ const sampleListings = [
     price: 4000,
     location: "Banaswadi",
     country: "India",
+    categories: ['mountains', 'camping'],
     coordinates: {
       lat: 13.0644,
       lon: 77.6289,
@@ -170,6 +180,7 @@ const sampleListings = [
     price: 1800,
     location: "JP Nagar",
     country: "India",
+    categories: ['city', 'camping'],
     coordinates: {
       lat: 12.9400,
       lon: 77.6000,
@@ -186,6 +197,7 @@ const sampleListings = [
     price: 10000,
     location: "BTM Layout",
     country: "India",
+    categories: ['beach', 'swimming', 'villas'],
     coordinates: {
       lat: 12.9176,
       lon: 77.6101,
@@ -202,6 +214,7 @@ const sampleListings = [
     price: 1200,
     location: "HSR Layout",
     country: "India",
+    categories: ['farms', 'camping'],
     coordinates: {
       lat: 12.9305,
       lon: 77.6337,
@@ -218,6 +231,7 @@ const sampleListings = [
     price: 2200,
     location: "VV Puram",
     country: "India",
+    categories: ['city', 'rooms', 'parking'],
     coordinates: {
       lat: 13.0057,
       lon: 77.5752,
@@ -229,11 +243,12 @@ const sampleListings = [
       "Relax on the sandy shores of Bali in this beautiful beachfront bungalow with a private pool.",
     image: {
       filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1602391833977-358a52198938?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fGNhbXBpbmd8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
+      url: "https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fGNhbXBpbmd8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
     },
     price: 1800,
     location: "Brigade Road",
     country: "India",
+    categories: ['beach', 'swimming', 'AC'],
     coordinates: {
       lat: 12.9789,
       lon: 77.5960,
@@ -250,6 +265,7 @@ const sampleListings = [
     price: 1500,
     location: "Commercial Street",
     country: "India",
+    categories: ['mountains', 'camping', 'AC'],
     coordinates: {
       lat: 12.9721,
       lon: 77.5930,
@@ -266,6 +282,7 @@ const sampleListings = [
     price: 1600,
     location: "Residency Road",
     country: "India",
+    categories: ['beach', 'apartments', 'city'],
     coordinates: {
       lat: 12.9726,
       lon: 77.5946,
@@ -282,6 +299,7 @@ const sampleListings = [
     price: 3000,
     location: "Cunningham Road",
     country: "India",
+    categories: ['villas', 'swimming', 'AC'],
     coordinates: {
       lat: 12.9748,
       lon: 77.5845,
@@ -298,6 +316,7 @@ const sampleListings = [
     price: 4000,
     location: "MG Road",
     country: "India",
+    categories: ['mountains', 'rooms'],
     coordinates: {
       lat: 12.9716,
       lon: 77.5997,
@@ -314,6 +333,7 @@ const sampleListings = [
     price: 5000,
     location: "Bangalore Fort",
     country: "India",
+    categories: ['villas', 'swimming', 'AC'],
     coordinates: {
       lat: 12.9671,
       lon: 77.6279,
@@ -330,6 +350,7 @@ const sampleListings = [
     price: 1100,
     location: "Jalahalli",
     country: "India",
+    categories: ['mountains', 'camping'],
     coordinates: {
       lat: 13.0544,
       lon: 77.5442,
@@ -346,6 +367,7 @@ const sampleListings = [
     price: 2500,
     location: "Ramamurthy Nagar",
     country: "India",
+    categories: ['beach', 'villas', 'swimming'],
     coordinates: {
       lat: 13.1157,
       lon: 77.6456,
@@ -362,6 +384,7 @@ const sampleListings = [
     price: 750,
     location: "CV Raman Nagar",
     country: "India",
+    categories: ['camping', 'farms'],
     coordinates: {
       lat: 13.0219,
       lon: 77.6526,
@@ -378,6 +401,7 @@ const sampleListings = [
     price: 1600,
     location: "Benson Town",
     country: "India",
+    categories: ['rooms', 'camping'],
     coordinates: {
       lat: 12.9739,
       lon: 77.5839,
@@ -394,6 +418,7 @@ const sampleListings = [
     price: 2000,
     location: "Langford Town",
     country: "India",
+    categories: ['city', 'apartments', 'metro'],
     coordinates: {
       lat: 12.9691,
       lon: 77.5775,
@@ -410,6 +435,7 @@ const sampleListings = [
     price: 1200,
     location: "Richmond Town",
     country: "India",
+    categories: ['camping', 'swimming'],
     coordinates: {
       lat: 12.9714,
       lon: 77.5822,
@@ -426,6 +452,7 @@ const sampleListings = [
     price: 6000,
     location: "New Thippasandra",
     country: "India",
+    categories: ['beach', 'villas', 'swimming', 'AC'],
     coordinates: {
       lat: 13.0033,
       lon: 77.6462,
@@ -442,6 +469,7 @@ const sampleListings = [
     price: 4000,
     location: "Shantinagar",
     country: "India",
+    categories: ['mountains', 'camping', 'AC'],
     coordinates: {
       lat: 13.0068,
       lon: 77.6095,
@@ -458,6 +486,7 @@ const sampleListings = [
     price: 1800,
     location: "Subramanyanagar",
     country: "India",
+    categories: ['beach', 'camping'],
     coordinates: {
       lat: 12.9881,
       lon: 77.5702,
