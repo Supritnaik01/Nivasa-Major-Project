@@ -427,4 +427,10 @@ a{
   #getLocation{
     height: 280px;
   }
+  .form-wrapper{
+    padding: 40px 25px;
+  }
+  .form-main-container{
+    padding-inline: 0px;
+  }
 }
