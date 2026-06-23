@@ -388,6 +388,12 @@ a{
 .categories-input{
   display: none;
 }
+
+ .categories-input:checked + .btn {
+  background-color: #198754;
+  /* border-color: #0D7377; */
+  color: #FAFAF8;
+}
 @media (hover: none) {
   .categories-btn {
     background-color: transparent !important;
@@ -401,14 +407,7 @@ a{
     color: #FAFAF8 !important;
   }
 }
-/* Only apply hover on actual hover-capable devices */
-@media (hover: hover) {
-  .categories-input:checked + .btn:hover {
-    background-color: #0D7377;
-    border-color: #0D7377;
-    color: #FAFAF8;
-  }
-}
+
 
 /* responsiveness */
 @media (max-width: 991px) {
