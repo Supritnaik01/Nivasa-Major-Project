@@ -9,16 +9,16 @@
        <h2 style="color: #1A2E2F;"><%=listing.title%></h2>
        <div class="card show-card" >
       <img src="<%=listing.image.url%>" class="card-img-top show-image" alt="listing image">
+      </div></div>
+      <div class="col-xl-9 col-lg-10">
       <div class="card-body">
       <p class="card-text">
-        Owned by <%=listing.owner.username%> <br>
-        <%=listing.description%> <br>
-        &#8377; <%=listing.price.toLocaleString("en-IN")%> <br>
-        <%=listing.country%> <br>
-        <%=listing.location%> <br>
+       <p class="mb-0" style="font-weight: 600;"> <%=listing.description%> </p> 
+       <p> &#8377; <%=listing.price.toLocaleString("en-IN")%> <br>
+       <%=listing.location%>, <%=listing.country%> <br></p>
         </p>
       </div>
-      </div>
+      
     <%  if(currUser && currUser._id.equals(listing.owner._id)) {%>
   <div class=" mb-3 mt-3">
 <!-- class="col-sm-3" class="row mb-3 mt-3" -->
@@ -31,9 +31,14 @@
 </div>
 <%}%>
  </div>
+    <div class="col-xl-9 col-lg-10">
+      <hr>
+       <i class="fa-solid fa-user" style="font-size: 1.25rem;"></i> <b>Hosted by <%=listing.owner.username%></b>
+      <hr>
+    </div>
   
     <div class="col-xl-9 col-lg-10 mt-3">
-      <hr><br>
+      <br>
       <h2>Where you’ll be</h2>
         <div id="map"></div>
     </div>
@@ -41,7 +46,7 @@
 
 <!-- review listing -->
     <div class="col-xl-9 col-lg-10 mt-3 " >
-      <hr>
+      <br><hr>
         <!-- class rating-container -->
        <form action="/listings/<%= listing._id %>/review" method="post" novalidate class="needs-validation">
 
@@ -99,7 +104,7 @@
           
           
           <!-- Review Comment -->
-          <p class="review-comment card-text"><%= review.comment %></p>
+          <p class="review-comment card-text mb-2"><%= review.comment %></p>
           <%  if(currUser && currUser._id.equals(review.author._id)) {%>
           <form action="/listings/<%=listing._id%>/review/<%=review._id%>?_method=delete" method="post">
           <button class="btn btn-dark">delete</button>

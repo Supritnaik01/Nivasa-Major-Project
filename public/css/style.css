@@ -291,6 +291,10 @@ a{
   }
 
   /* .star  */
+  .activeRating{
+    color: #0D7377;
+    /* background-color: #0a5a62; */
+  }
   .filled {
     color: #0D7377 ;
   }
@@ -306,6 +310,7 @@ a{
     color: #1A2E2F;
     line-height: 1.6;
     margin: 0;
+    text-align: justify;
   }
 
   .no-reviews {

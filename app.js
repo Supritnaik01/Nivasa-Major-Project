@@ -10,18 +10,19 @@ const listingRoute=require("./routes/listingRoute.js");
 const reviewRoute=require("./routes/reviewRoute.js");
 const userRoute=require("./routes/userRoute.js");
 const session=require("express-session");
+const { MongoStore } = require("connect-mongo");
 const flash=require("connect-flash");
 const passport=require("passport");
 const localStrategy=require("passport-local");
 const User=require("./models/user.js");
 
-let MONGO_URL="mongodb://127.0.0.1:27017/nivasa";
+let DB_URL=process.env.Atlas_url;
 
 main().then(()=>console.log("connected"))
 .catch((err)=>console.log("not connected"));
 
 async function main(){
-    await mongoose.connect(MONGO_URL);
+    await mongoose.connect(DB_URL);
 }
 
 app.engine("ejs",ejsMate);
@@ -31,20 +32,30 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname,"/public")));
 
-let sessionOption={
-    secret:"my superSecreatcode",
-    resave:false,
-    saveUninitialized:false,
-    cookie:{
-        expires:Date.now()+1000*60*60*24*7,
-        maxAge:1000*60*60*24*7,
-        httpOnly:true
-    }
-};
+const store=MongoStore.create({
+            mongoUrl: DB_URL ,
+            crypto:{
+                secret:process.env.secret,
+                },
+            touchAfter:86400,
+        });
 
-app.get("/",(req,res)=>{
-    res.send("welcome to root");
-});
+store.on("error",(err)=>{
+            console.log("ERROR IN MONGO SESSION STORE",err);
+        });
+
+let sessionOption={
+        store:store,
+        secret:process.env.secret,
+        resave:false,
+        saveUninitialized:false,
+        cookie:{
+            expires:Date.now()+1000*60*60*24*7,
+            maxAge:1000*60*60*24*7,
+            httpOnly:true
+        }
+    };
+
 
 app.use(session(sessionOption));
 app.use(passport.initialize());
@@ -62,13 +73,13 @@ app.use((req,res,next)=>{
     res.locals.deleteMsg=req.flash("deleteMsg");
     res.locals.errorMsg=req.flash("error");
     res.locals.currUser=req.user;
-    
-    // console.log(req.success);
-    
+   
     next();
  });
 
-
+app.get("/",(req,res)=>{
+    res.redirect("/listings");
+});
 app.use("/listings",listingRoute);
 app.use("/listings/:id/review",reviewRoute);
 app.use("/",userRoute);

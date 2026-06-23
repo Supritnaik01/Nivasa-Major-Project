@@ -12,9 +12,9 @@ ratingInputs.forEach((input) => {
     ratingInputs.forEach((inp) => {
       const lbl = document.querySelector(`label[for="${inp.getAttribute("id")}"]`);
       if (parseInt(inp.value) <= hoverValue) {
-        lbl.classList.add('active');
+        lbl.classList.add('activeRating');
       } else {
-        lbl.classList.remove('active');
+        lbl.classList.remove('activeRating');
       }
     });
   });
@@ -42,9 +42,9 @@ function updateStars() {
   ratingInputs.forEach((inp) => {
     const lbl = document.querySelector(`label[for="${inp.getAttribute("id")}"]`);
     if (inp.value<=val) {
-      lbl.classList.add('active');
+      lbl.classList.add('activeRating');
     } else {
-      lbl.classList.remove('active');
+      lbl.classList.remove('activeRating');
     }
   });
 }
