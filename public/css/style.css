@@ -382,18 +382,32 @@ a{
 }
 .categories-btn{
   width: 10rem;
-  /* margin-right: 4rem; */
-}
-/* Tablet & smaller */
-
-  .categories-input:checked + .btn {
-  background-color: #198754;
-  /* border-color: #0D7377; */
-  color: #FAFAF8;
+  
 }
 
 .categories-input{
   display: none;
+}
+@media (hover: none) {
+  .categories-btn {
+    background-color: transparent !important;
+    border-color: #198754 !important;
+    color: #198754 !important;
+  }
+  
+  .categories-input:checked + .btn {
+    background-color: #0D7377 !important;
+    border-color: #0D7377 !important;
+    color: #FAFAF8 !important;
+  }
+}
+/* Only apply hover on actual hover-capable devices */
+@media (hover: hover) {
+  .categories-input:checked + .btn:hover {
+    background-color: #0D7377;
+    border-color: #0D7377;
+    color: #FAFAF8;
+  }
 }
 
 /* responsiveness */
