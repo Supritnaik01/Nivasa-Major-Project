@@ -7,6 +7,7 @@ An Airbnb-inspired property listing and booking platform built with modern web t
 ![MongoDB](https://img.shields.io/badge/MongoDB-9.6-green)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
+- Live Demo: [mynivasa](https://mynivasa.onrender.com)
 ## 📋 Table of Contents
 
 - [Features](#features)
@@ -184,7 +185,7 @@ Contributions are welcome! To contribute:
 
 **Suprit Naik**
 - GitHub: [@Supritnaik01](https://github.com/Supritnaik01)
-- Email: suprit@example.com
+- Email: supritn70@gmail.com
 
 ## 🙏 Acknowledgments
 
