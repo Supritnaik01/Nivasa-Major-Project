@@ -2,13 +2,13 @@ const express=require("express");
 const router=express.Router();
 const wrapAsync=require("../utils/wrapAsync.js");
 const passport = require("passport");
-const {saveUrl}=require("../middleware.js")
+const {saveUrl,validateUser}=require("../middleware.js")
 const userController=require("../controllers/user.js")
 
 
 router.route("/signup")
 .get(userController.renderSignupForm)      //sigup form
-.post(wrapAsync(userController.signupUser));   //signup user
+.post(validateUser,wrapAsync(userController.signupUser));   //signup user
 
 router
 

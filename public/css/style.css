@@ -434,3 +434,8 @@ a{
     padding-inline: 0px;
   }
 }
+.signup-link{
+  display: flex;
+  justify-self: center;
+margin-top: 5px;
+}

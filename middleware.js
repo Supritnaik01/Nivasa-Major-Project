@@ -1,6 +1,7 @@
 const Listing=require("./models/listing.js");
 const Review=require("./models/review.js");
-const {reviewSchema,listingSchema}=require("./schema.js");
+const {reviewSchema,listingSchema,userSchema}=require("./schema.js");
+const ExpressError=require("./utils/ExpressError.js")
 
 module.exports.isLoggedIn=(req,res,next)=>{
     if(!req.isAuthenticated()){
@@ -47,6 +48,17 @@ module.exports.validateListing=(req,res,next)=>{
       next();
     }
  };
+
+  module.exports.validateUser=(req,res,next)=>{
+    let {error}=userSchema.validate(req.body);
+    if(error){
+      let errorMsg=error.details.map((el)=>el.message).join(",");
+      throw(new ExpressError(400,errorMsg));
+    }else{
+      next();
+    }
+ };
+
  module.exports.isAuthor=async (req,res,next)=>{
      let {id,reviewId}=req.params;
      let review=await Review.findById(reviewId);
