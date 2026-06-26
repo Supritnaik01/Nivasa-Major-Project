@@ -9,8 +9,6 @@ An Airbnb-inspired property listing and booking platform built with modern web t
 
 - Live Demo: [mynivasa](https://mynivasa.onrender.com)
 
-=======
-
 
 ## 📋 Table of Contents
 
