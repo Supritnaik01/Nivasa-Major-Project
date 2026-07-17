@@ -85,7 +85,7 @@ app.use("/listings/:id/review",reviewRoute);
 app.use("/",userRoute);
   
 app.all("/{*splat}",(req,res,next)=>{
-  next(new ExpressError(404,"page not found"));
+  next(new ExpressError(404,"Service Coming Soon."));
 });
 
 app.use((err, req,res,next)=>{
