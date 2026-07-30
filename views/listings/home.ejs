@@ -2,7 +2,9 @@
 <body>
 
     <!-- <button><a href="/listings/new">create new listing</a></button> -->
+     <% if(showFilterNavBar) {%>
   <%-include("../includes/filters.ejs")%>
+  <% } %>
   <div class="container-card row">
     <%for(listing of listings){%>
         

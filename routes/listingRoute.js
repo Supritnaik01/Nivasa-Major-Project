@@ -16,7 +16,7 @@ router.route("/")
 router.get("/new",isLoggedIn, listingController.renderCreateNewForm);
 
 //show my listings
-router.get("/myListings/:userid",isLoggedIn,wrapAsync(listingController.showMyListing));
+router.get("/myListings",isLoggedIn,wrapAsync(listingController.showMyListing));
 
 router.route("/:id")
 .get(wrapAsync(listingController.showListing))     //show

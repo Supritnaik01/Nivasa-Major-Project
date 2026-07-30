@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md  sticky-top border-bottom">
+<nav class="navbar navbar-expand-lg  sticky-top border-bottom">
   <div class="container-fluid px-0">
     <a class="navbar-brand ms-3" href="/listings"><img src="/assets/Nivasa_logo.jpg" alt="Nivasa" ></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
@@ -7,11 +7,14 @@
     <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link explore-text"  href="/listings" >Explore</a>
-        
+        <% if(currUser){ %>
+          <a class="nav-link explore-text"  href="/bookings/myBookings" style="font-weight: 330;">My Bookings</a>
+        <% } %>
       </div>
        <div class="navbar-nav ms-auto">
           <% if(currUser){ %>
-        <a class="nav-link explore-text"  href="/listings/myListings/<%=currUser._id%>" style="font-weight: 330;">My Listings</a>
+          
+        <a class="nav-link explore-text"  href="/listings/myListings" style="font-weight: 330;">My Listings</a>
         <% } %>
         <a class="nav-link " href="/listings/new" style="font-weight: 330;">Host your Nivasa</a>
        <% if(!currUser){ %>

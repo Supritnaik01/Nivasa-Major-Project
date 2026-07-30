@@ -9,6 +9,8 @@ const ExpressError=require("./utils/ExpressError.js");
 const listingRoute=require("./routes/listingRoute.js");
 const reviewRoute=require("./routes/reviewRoute.js");
 const userRoute=require("./routes/userRoute.js");
+const bookingRoute=require("./routes/bookingRoute.js");
+const myBookingRoute=require("./routes/myBookingRoute.js");
 const session=require("express-session");
 const { MongoStore } = require("connect-mongo");
 const flash=require("connect-flash");
@@ -81,7 +83,9 @@ app.get("/",(req,res)=>{
     res.redirect("/listings");
 });
 app.use("/listings",listingRoute);
+app.use("/listings/:id/bookings",bookingRoute);
 app.use("/listings/:id/review",reviewRoute);
+app.use("/bookings",myBookingRoute);
 app.use("/",userRoute);
   
 app.all("/{*splat}",(req,res,next)=>{

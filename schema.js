@@ -28,3 +28,18 @@ module.exports.userSchema=Joi.object({
         password:Joi.string().required().min(6),
     }).required()
 })
+
+
+module.exports.bookingSchema=Joi.object({
+    booking:Joi.object({
+         checkIn: Joi.date().iso().required()
+            .messages({
+                "any.required": "Check-in date is required",
+            }),
+        checkOut: Joi.date().iso().greater(Joi.ref("checkIn")).required()
+            .messages({
+                "date.greater": "Check-out date must be after check-in date",
+                "any.required": "Check-out date is required",
+            }),
+    }).required()
+})

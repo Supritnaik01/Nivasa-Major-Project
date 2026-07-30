@@ -17,3 +17,16 @@
     }, false)
   })
 })()
+
+const checkIn=document.getElementById("checkIn");
+const checkOut=document.getElementById("checkOut");
+const today=new Date().toISOString().split("T")[0];
+checkIn.min=today;
+checkIn.addEventListener("change",()=>{
+  checkOut.disabled=false;
+      const minDate=new Date(checkIn.value);
+      minDate.setDate(minDate.getDate()+1);
+      
+      checkOut.min=minDate.toISOString().split("T")[0];;
+      checkOut.value="";
+})

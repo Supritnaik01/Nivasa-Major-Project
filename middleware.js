@@ -1,6 +1,7 @@
 const Listing=require("./models/listing.js");
 const Review=require("./models/review.js");
-const {reviewSchema,listingSchema,userSchema}=require("./schema.js");
+const Booking=require("./models/booking.js")
+const {reviewSchema,listingSchema,userSchema,bookingSchema}=require("./schema.js");
 const ExpressError=require("./utils/ExpressError.js")
 
 module.exports.isLoggedIn=(req,res,next)=>{
@@ -66,6 +67,30 @@ module.exports.validateListing=(req,res,next)=>{
     if(!review.author.equals(res.locals.currUser._id)){
         req.flash("error","you do not have permission to do this action");
         return res.redirect(`/listings/${id}`);
+    }
+    next();
+}
+
+module.exports.validateBooking=async (req,res,next)=>{
+    const { error } = bookingSchema.validate(req.body);
+    if (error) {
+        const errorMsg = error.details.map((el) => el.message).join(", ");
+        throw new ExpressError(400, errorMsg);
+    }
+    next();
+}
+
+module.exports.isOwnerOfBooking=async (req,res,next)=>{
+     let {id}=req.params;
+     let booking=await Booking.findById(id);
+     if (!booking) {
+        req.flash("error", "Booking not found");
+        return res.redirect("/bookings");
+    }
+    //  console.log(res.locals.currUser);
+    if(!booking.user.equals(res.locals.currUser._id)){
+        req.flash("error","you do not have permission to do this action");
+        return res.redirect(`/listings/myBookings`);
     }
     next();
 }

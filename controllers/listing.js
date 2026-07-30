@@ -3,14 +3,14 @@ const Listing=require("../models/listing.js");
 module.exports.renderAllListings=async (req,res)=>{
  const { categories } = req.query;
      let filter = {};
-
+    let showFilterNavBar=true;
     if (categories) {
      const categoryArray = categories.split(',');
      filter = { categories : { $all: categoryArray } };
     }
 
 let listings = await Listing.find(filter);
-res.render("listings/home.ejs", { listings });
+res.render("listings/home.ejs", { listings ,showFilterNavBar});
 }
 
 module.exports.renderCreateNewForm=(req,res)=>{
@@ -71,7 +71,9 @@ module.exports.deleteListing=async (req,res)=>{
 
 module.exports.showMyListing=async (req,res)=>{
   
-    let {userid}=req.params;
+    // let {userid}=req.params;
+    let userid=res.locals.currUser;
     let listings=await Listing.find({owner:userid});
-    res.render("listings/home.ejs",{listings});
+    let showFilterNavBar=false;
+    res.render("listings/home.ejs",{listings,showFilterNavBar});
 }

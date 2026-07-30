@@ -31,12 +31,59 @@
 </div>
 <%}%>
  </div>
+ <!-- </div> -->
     <div class="col-xl-9 col-lg-10">
       <hr>
        <i class="fa-solid fa-user" style="font-size: 1.25rem;"></i> <b>Hosted by <%=listing.owner.username%></b>
       <hr>
     </div>
+
   
+ <!-- BOOKING -->
+<%  if(currUser && !currUser._id.equals(listing.owner._id)) {%>
+  <div class="col-xl-9 col-lg-10 mt-3">
+        <!-- <div class="row offset-xl-2 offset-lg-1">     -->
+            <!-- <div class="col-xl-9 col-lg-10"> -->
+              
+               <div class="card p-3 shadow border-0" style=" width: 100%; border-radius: 12px; background-color: #FAFAF8;">
+                  <h5 class="mb-2 fw-semibold">Book this place</h5>
+                  <p class=" text-muted">&#8377;<%= listing.price.toLocaleString("en-IN") %> <span class="fs-6">/ night</span></p>
+
+                  <form action="/listings/<%= listing._id %>/bookings" method="POST" novalidate class="needs-validation">
+                    <div class="row g-2 ">
+                      <div class="col-6 col-md-4">
+                        <label for="checkIn" class="form-label small mb-1">Check-in</label>
+                        <input type="date" class="form-control form-control-sm" id="checkIn" name="booking[checkIn]"  required>
+                        <div class="invalid-feedback">
+                        *Please select Valid Check-in date
+                        </div>
+                      </div>
+                      <div class="col-6 col-md-4 ">
+                        <label for="checkOut" class="form-label small mb-1">Check-out</label>
+                        <input type="date" class="form-control form-control-sm" id="checkOut" name="booking[checkOut]" required disabled>
+                        <div class="invalid-feedback">
+                        *Please select Valid Check-out date
+                        </div>
+                      </div>
+                   
+                    <div class="  col-md-4 " >
+                      <label class="form-label small mb-1 invisible">Reserve</label>
+                    <button type="submit" class="btn btn-primary w-100 fw-medium" style="height: 50px;" >Reserve</button>
+                    </div>
+                     </div>
+                  </form>
+                  <!-- style="position: relative; top: 26px;" -->
+              </div>
+            <!-- </div> -->
+          <!-- </div> -->
+  </div>
+     <%} %>
+
+
+
+
+
+  <!-- MAP -->
     <div class="col-xl-9 col-lg-10 mt-3">
       <br>
       <h2>Where you’ll be</h2>
