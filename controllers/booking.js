@@ -28,8 +28,8 @@ module.exports.savaBooking=async (req,res)=>{
     const checkInDate=new Date(checkIn);
     const checkOutDate=new Date(checkOut);
 
-    if(checkInDate<=new Date().setHours(0,0,0,0)){
-        req.flash("error","check-out should be more than check-in");
+    if(checkInDate<new Date().setHours(0,0,0,0)){
+        req.flash("error","check-in date should be valid");
          res.redirect(`/listings/${listingId}`);
          return;
     }
