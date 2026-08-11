@@ -23,6 +23,10 @@ module.exports.saveUrl=(req,res,next)=>{
 module.exports.isOwner=async (req,res,next)=>{
      let {id}=req.params;
      let listing=await Listing.findById(id);
+     if(!listing){
+        req.flash("error","listing not found");
+        return res.redirect("/listings");
+     }
     //  console.log(res.locals.currUser);
     if(!listing.owner.equals(res.locals.currUser._id)){
         req.flash("error","you do not have permission to do this action");

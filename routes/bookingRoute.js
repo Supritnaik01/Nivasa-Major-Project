@@ -7,8 +7,4 @@ const bookingController=require("../controllers/booking.js");
 router.route("/")
 .post(isLoggedIn,validateBooking,wrapAsync(bookingController.savaBooking))
 
-router.route("/myBookings")
-.get((req,res,next)=>{
-    res.send("hii");
-})
 module.exports=router;

@@ -9,7 +9,28 @@ module.exports.listingSchema=Joi.object({
         }),
         price:Joi.number().required().min(0),
         location:Joi.string().required(),
-        country:Joi.string().required()
+        country:Joi.string().required(),
+        coordinates: Joi.object({
+            lat: Joi.number().required(),
+            lon: Joi.number().required()
+        }).required(),
+
+        categories: Joi.array().items(
+            Joi.string().valid(
+                "rooms",
+                "apartments",
+                "villas",
+                "beach",
+                "mountains",
+                "city",
+                "farms",
+                "camping",
+                "swimming",
+                "AC",
+                "metro",
+                "parking"
+            )
+        )
     }).required()
 }
 );

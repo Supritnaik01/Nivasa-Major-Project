@@ -4,7 +4,7 @@ module.exports.renderSignupForm=(req,res)=>{
     res.render("users/signup.ejs");
 }
 
-module.exports.signupUser=async (req,res)=>{
+module.exports.signupUser=async (req,res,next)=>{
   try{
     let {username,email,password}=req.body.user;
     let user=new User({username,email});
@@ -37,7 +37,7 @@ module.exports.loginUser=(req,res)=>{
     }
 }
   
-module.exports.logoutUser=(req,res)=>{
+module.exports.logoutUser=(req,res,next)=>{
     req.logout((err)=>{
         if(err){
           return next(err);
