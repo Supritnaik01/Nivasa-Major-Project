@@ -1,5 +1,6 @@
 const mongoose=require("mongoose");
 const Review = require("./review.js");
+const Booking=require("./booking.js");
 const { required } = require("joi");
 // const { ref } = require("joi");
 const schema=mongoose.Schema;
@@ -61,6 +62,7 @@ const listingSchema=new schema({
 listingSchema.post("findOneAndDelete",async (listing)=>{
     if(listing){
    await Review.deleteMany({_id : {$in:listing.reviews}});
+   await booking.deleteMany({listing:listing._id});
 }});
 const listing=mongoose.model("listing",listingSchema);
 module.exports=listing;
