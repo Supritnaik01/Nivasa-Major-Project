@@ -1,600 +1,374 @@
-# 🏡 Nivasa — Full-Stack Property Rental Platform
+# Nivasa — Property Rental & Booking Platform
 
-**Nivasa** is a full-stack property rental and listing platform inspired by applications such as Airbnb. Users can explore properties, create and manage listings, upload property images, leave reviews, view locations on an interactive map, and make bookings with date-conflict detection.
+Nivasa is a full-stack property rental and booking platform built with **Node.js, Express.js, MongoDB, Mongoose, EJS, and Bootstrap**.
 
-🌐 **Live Demo:** https://mynivasa.onrender.com
-💻 **GitHub:** https://github.com/Supritnaik01/Nivasa-Major-Project
+The project focuses on implementing the backend workflows behind a real-world rental platform, including **authentication, authorization, property management, image uploads, reviews, geolocation, and booking conflict detection**.
 
----
+## Key Engineering Work
 
-## ✨ Features
+### 1. Authentication & Authorization
 
-### 🔐 Authentication & Authorization
+* Implemented user authentication using **Passport.js** and session-based authentication.
+* Protected routes that require authenticated users.
+* Implemented authorization so users can modify or delete only resources they are permitted to manage.
+* Integrated authentication with the application's server-rendered views.
 
-* User registration and login
-* Logout functionality
-* Session-based authentication using Passport.js
-* Persistent sessions using MongoDB
-* Protected routes for authenticated users
-* Owner-based authorization for listings
-* Author-based authorization for reviews
-* User-based authorization for bookings
+### 2. Property Listing Management
 
-### 🏠 Property Listings
+Users can:
 
-* View all available properties
-* View individual property details
-* Create new property listings
-* Edit existing listings
-* Delete owned listings
-* Property categories and amenities
-* Price per night
-* Property descriptions and locations
-* Owner information
+* Create property listings.
+* Upload property images.
+* Add property details such as title, description, price, location, and country.
+* Edit and delete their listings.
+* View available property listings and detailed property information.
 
-### 🔎 Listing Categories
+The application separates listing-related responsibilities using an **MVC-based structure**, keeping routing, models, controllers, and views organized.
 
-Users can filter properties using categories such as:
+### 3. Booking & Conflict Detection
 
-* Rooms
-* Apartments
-* Villas
-* Beach
-* Mountains
-* City
-* Farms
-* Camping
-* Swimming Pool
-* AC
-* Metro
-* Parking
+A key backend component of Nivasa is its booking system.
 
-### 🖼️ Image Uploads
+Before creating a booking, the application checks whether the requested dates overlap with an existing reservation.
 
-* Multiple property images
-* Image upload using Multer
-* Cloudinary integration for cloud image storage
-* Images are stored externally instead of directly in MongoDB
+The overlap condition is conceptually:
 
-### 🗺️ Interactive Maps
+```text
+existingCheckIn < requestedCheckOut
+AND
+existingCheckOut > requestedCheckIn
+```
 
-* Property coordinates stored with listings
-* Interactive maps using Leaflet
-* OpenStreetMap integration
-* Displays the property's location on the listing details page
+If an overlap exists, the booking is rejected.
 
-### ⭐ Reviews & Ratings
+This prevents multiple users from booking the same property for conflicting dates.
 
-* Authenticated users can submit reviews
-* Rating system from 1–5
-* Review authors can delete their own reviews
-* Reviews are associated with both users and listings
-* Review cleanup when a listing is deleted
+### 4. Reviews & Ratings
 
-### 📅 Booking System
+Users can submit reviews and ratings for properties.
 
-* Users can book properties
-* Check-in and check-out dates
-* Automatic number-of-nights calculation
-* Automatic total-price calculation
-* Server-side booking validation
-* Prevents overlapping bookings for the same property
-* Users can view their bookings
-* Booking cancellation support
+The application:
 
-### ⚠️ Validation & Error Handling
+* Associates reviews with users and listings.
+* Displays reviews on property pages.
+* Allows authorized users to manage their reviews.
+* Maintains relationships between listings, users, and reviews through MongoDB references.
 
-* Joi-based server-side request validation
-* Mongoose schema validation
-* Custom error handling
-* Flash messages for user feedback
-* Protected routes and authorization middleware
+### 5. Image Upload & Cloud Storage
+
+Property images are uploaded through the application and stored using **Cloudinary**.
+
+The application maintains the corresponding image information with the property data in MongoDB rather than storing image files directly inside the database.
+
+### 6. Location & Maps
+
+Property locations are displayed using **Leaflet** with **OpenStreetMap**.
+
+This provides an interactive map interface for viewing the geographical location associated with a property.
+
+### 7. Server-Side Validation & Error Handling
+
+The application validates incoming data before persisting it to the database.
+
+It also uses centralized error-handling patterns in the Express application to handle invalid requests and application errors more consistently.
 
 ---
 
-## 🛠️ Tech Stack
+## Technology Stack
 
-### Frontend
-
-* HTML5
-* CSS3
-* JavaScript
-* Bootstrap
-* EJS
-* EJS-Mate
-
-### Backend
-
-* Node.js
-* Express.js
-* RESTful routing
-* MVC architecture
-
-### Database
-
-* MongoDB
-* MongoDB Atlas
-* Mongoose
-
-### Authentication
-
-* Passport.js
-* Passport Local
-* Passport Local Mongoose
-* Express Session
-* Connect-Mongo
-
-### Cloud & APIs
-
-* Cloudinary — Image storage
-* Multer — File uploads
-* Leaflet — Interactive maps
-* OpenStreetMap — Map data
-
-### Validation
-
-* Joi
-* Mongoose validation
-
-### Deployment
-
-* Render
+| Layer          | Technology                            |
+| -------------- | ------------------------------------- |
+| Frontend       | EJS, HTML, CSS, JavaScript, Bootstrap |
+| Backend        | Node.js, Express.js                   |
+| Database       | MongoDB                               |
+| ODM            | Mongoose                              |
+| Authentication | Passport.js                           |
+| Sessions       | Express Session                       |
+| Image Storage  | Cloudinary                            |
+| Maps           | Leaflet, OpenStreetMap                |
+| Architecture   | MVC                                   |
+| Deployment     | Render                                |
 
 ---
 
-## 🏗️ Project Architecture
+## Application Architecture
 
-Nivasa follows an MVC-inspired architecture to separate application responsibilities.
+Nivasa follows an **MVC-oriented architecture**:
 
 ```text
 Nivasa
 │
 ├── controllers/
-│   ├── booking.js
-│   ├── listing.js
-│   ├── review.js
-│   └── user.js
+│   ├── listings.js
+│   ├── reviews.js
+│   └── bookings.js
 │
 ├── models/
-│   ├── booking.js
 │   ├── listing.js
 │   ├── review.js
-│   └── user.js
+│   ├── user.js
+│   └── booking.js
 │
 ├── routes/
-│   ├── bookingRoute.js
-│   ├── listingRoute.js
-│   ├── myBookingRoute.js
-│   ├── reviewRoute.js
-│   └── userRoute.js
+│   ├── listing.js
+│   ├── review.js
+│   ├── booking.js
+│   └── user.js
 │
 ├── views/
-│   ├── layouts/
 │   ├── listings/
+│   ├── bookings/
 │   ├── users/
-│   └── includes/
+│   └── layouts/
 │
 ├── public/
 │   ├── css/
 │   └── js/
 │
 ├── utils/
-│   ├── ExpressError.js
-│   └── wrapAsync.js
 │
-├── middleware.js
-├── schema.js
-├── cloudConfig.js
 ├── app.js
-├── package.json
-└── README.md
+├── middleware.js
+├── cloudConfig.js
+└── package.json
 ```
+
+> The file and directory names above should match the current repository structure.
 
 ---
 
-## 🔄 Application Flow
+## Data Model
 
-```text
-                    ┌───────────────┐
-                    │     User      │
-                    └───────┬───────┘
-                            │
-                            ▼
-                    ┌───────────────┐
-                    │   Express.js  │
-                    └───────┬───────┘
-                            │
-                            ▼
-                    ┌───────────────┐
-                    │    Routes     │
-                    └───────┬───────┘
-                            │
-                            ▼
-                    ┌───────────────┐
-                    │  Middleware   │
-                    │ Auth/Validate │
-                    └───────┬───────┘
-                            │
-                            ▼
-                    ┌───────────────┐
-                    │ Controllers   │
-                    └───────┬───────┘
-                            │
-                            ▼
-                    ┌───────────────┐
-                    │    Models     │
-                    │   Mongoose    │
-                    └───────┬───────┘
-                            │
-                            ▼
-                    ┌───────────────┐
-                    │    MongoDB    │
-                    └───────────────┘
-```
-
----
-
-## 🗄️ Database Design
-
-Nivasa uses MongoDB with Mongoose schemas.
+The application uses MongoDB with Mongoose to model the primary entities.
 
 ### User
 
-```text
-User
-├── username
-├── email
-├── password
-└── ...
-```
+Stores user authentication and account information.
 
 ### Listing
 
-```text
-Listing
-├── title
-├── description
-├── image
-├── price
-├── location
-├── country
-├── coordinates
-├── categories
-├── owner → User
-├── reviews → Review[]
-└── ...
-```
+Represents a property available on the platform and contains information such as:
+
+* Title
+* Description
+* Price
+* Location
+* Country
+* Images
+* Owner
 
 ### Review
 
-```text
-Review
-├── comment
-├── rating
-├── author → User
-└── ...
-```
+Represents a review associated with:
+
+* A listing
+* A user
+* Rating
+* Review content
 
 ### Booking
 
-```text
-Booking
-├── checkIn
-├── checkOut
-├── totalPrice
-├── status
-├── listing → Listing
-├── user → User
-└── ...
-```
+Represents a reservation associated with:
 
-### Entity Relationships
+* A user
+* A listing
+* Check-in date
+* Check-out date
 
-```text
-             ┌──────────┐
-             │   User   │
-             └────┬─────┘
-                  │
-        ┌─────────┼─────────┐
-        │         │         │
-        ▼         ▼         ▼
-     Listings   Reviews   Bookings
-        │         │         │
-        └────┬────┘         │
-             │              │
-             ▼              │
-         ┌─────────┐        │
-         │ Listing │◄───────┘
-         └─────────┘
-```
+The relationships between these entities are implemented using **Mongoose references**.
 
 ---
 
-## 📅 Booking Conflict Detection
+## Booking Flow
 
-Nivasa checks whether an existing booking overlaps with the requested dates before creating a new booking.
-
-The overlap condition is conceptually:
+The booking workflow follows this general sequence:
 
 ```text
-Existing Check-in < New Check-out
-AND
-Existing Check-out > New Check-in
+User selects property
+        │
+        ▼
+Selects check-in / check-out dates
+        │
+        ▼
+Server validates request
+        │
+        ▼
+Check existing bookings
+        │
+        ├── Conflict found ──► Reject booking
+        │
+        ▼
+No conflict
+        │
+        ▼
+Create booking
+        │
+        ▼
+Store booking in MongoDB
 ```
 
-This prevents multiple users from booking the same property for overlapping dates.
-
-The total booking price is calculated based on:
-
-```text
-Number of Nights × Price per Night
-```
+The important part of this workflow is that **availability is checked on the server**, rather than relying only on frontend validation.
 
 ---
 
-## 🔒 Security & Authorization
+## Security & Access Control
 
-Nivasa implements multiple layers of protection:
+The application implements several application-level security measures:
 
-* Authentication using Passport.js
-* Session-based login
-* Persistent sessions using MongoDB
-* Protected routes
-* Listing ownership verification
-* Review author verification
-* Booking ownership verification
-* Server-side Joi validation
-* Mongoose validation
-* Environment variables for sensitive configuration
-* HTTP-only session cookies
+* Session-based authentication.
+* Protected routes for authenticated users.
+* Authorization checks for resource ownership.
+* Server-side request validation.
+* Password handling through Passport Local Mongoose rather than storing plaintext passwords.
+* Environment variables for sensitive configuration values.
+
+Sensitive configuration such as database credentials and API keys should be supplied through environment variables rather than committed to the repository.
 
 ---
 
-## ☁️ Cloudinary Image Architecture
+## Project Structure
 
-Property images are not stored directly inside MongoDB.
+The application separates major responsibilities across:
 
-```text
-User
-  │
-  │ Upload Image
-  ▼
-Multer
-  │
-  ▼
-Cloudinary
-  │
-  │ Image URL
-  ▼
-MongoDB
-```
+* **Models** — database schemas and relationships.
+* **Controllers** — application/business logic.
+* **Routes** — HTTP request routing.
+* **Views** — server-rendered UI.
+* **Middleware** — authentication, authorization, validation, and request processing.
+* **Utils** — reusable application utilities.
+* **Public** — client-side assets.
 
-MongoDB stores the image information/URL while Cloudinary handles the actual image storage.
+This separation makes individual features easier to modify and maintain.
 
 ---
 
-## 🗺️ Map Architecture
+## Getting Started
 
-Nivasa uses **Leaflet** with **OpenStreetMap**.
+### Prerequisites
 
-```text
-Listing
-   │
-   ├── latitude
-   └── longitude
-          │
-          ▼
-      Leaflet Map
-          │
-          ▼
-   OpenStreetMap
-```
+Make sure the following are installed:
 
-Each listing can display its location using its stored coordinates.
+* Node.js
+* npm
+* MongoDB database
+* Cloudinary account
 
----
+### Installation
 
-## 🚀 Getting Started
-
-### 1. Clone the repository
+Clone the repository:
 
 ```bash
 git clone https://github.com/Supritnaik01/Nivasa-Major-Project.git
-```
-
-### 2. Navigate into the project
-
-```bash
 cd Nivasa-Major-Project
 ```
 
-### 3. Install dependencies
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-### 4. Create environment variables
+Create a `.env` file and provide the required environment variables used by the application, including the MongoDB connection string, session secret, and Cloudinary credentials.
 
-Create a `.env` file in the root directory:
-
-```env
-Atlas_url=your_mongodb_connection_string
-secret=your_session_secret
-
-key_name=your_cloudinary_cloud_name
-api_key=your_cloudinary_api_key
-api_secrete=your_cloudinary_api_secret
-```
-
-Use the variable names expected by the current application configuration.
-
-### 5. Start the application
+Start the application:
 
 ```bash
-node app.js
+npm start
 ```
 
-For development, if you have Nodemon installed:
-
-```bash
-nodemon app.js
-```
-
-The application will be available at:
-
-```text
-http://localhost:8080
-```
+The application can then be accessed through the local server configured in the project.
 
 ---
 
-## 📦 Main Dependencies
+## Core Dependencies
 
-Some of the major packages used in the project include:
+The project uses libraries including:
 
-```text
-express
-mongoose
-ejs
-ejs-mate
-passport
-passport-local
-passport-local-mongoose
-express-session
-connect-mongo
-connect-flash
-joi
-multer
-multer-storage-cloudinary
-cloudinary
-method-override
-dotenv
-leaflet
-```
+* Express.js
+* Mongoose
+* EJS
+* Passport.js
+* Passport Local Mongoose
+* Express Session
+* Cloudinary
+* Multer
+* Leaflet
+* Joi
+* Method Override
+* Connect Mongo
 
 ---
 
-## 🌐 Deployment
+## Engineering Highlights
 
-The application is deployed using **Render**.
+The main engineering challenges addressed in Nivasa include:
 
-### Live Application
-
-https://mynivasa.onrender.com
-
-### Main Pages
-
-```text
-/
-├── /listings
-├── /listings/:id
-├── /listings/new
-├── /listings/:id/edit
-├── /login
-├── /signup
-└── /myBookings
-```
+1. **Designing relationships between users, listings, reviews, and bookings using MongoDB references.**
+2. **Implementing authentication and resource-level authorization.**
+3. **Preventing overlapping property reservations through server-side date validation.**
+4. **Handling image uploads and external cloud storage.**
+5. **Integrating interactive maps with property data.**
+6. **Structuring the Express application using MVC principles.**
+7. **Validating user input before database operations.**
+8. **Managing sessions and protected application workflows.**
 
 ---
 
-## 📸 Screenshots
+## Current Limitations
 
-Add screenshots of the major pages here.
+Nivasa is primarily a learning and portfolio project. Some areas that could be improved further include:
 
-Recommended screenshots:
-
-1. Homepage
-2. Listings page
-3. Listing details
-4. Create listing
-5. Login/signup
-6. Booking page
-7. My bookings
-8. Map
-9. Reviews
-
-Example:
-
-```markdown
-![Nivasa Listings](./screenshots/listings.png)
-```
+* Automated unit and integration testing.
+* More comprehensive API-level testing.
+* Improved booking transaction/concurrency handling.
+* More robust input validation and security hardening.
+* Production-grade observability and logging.
+* Improved frontend responsiveness and UX.
+* More comprehensive deployment and CI/CD automation.
 
 ---
 
-## 🧪 Testing
+## Future Improvements
 
-Automated testing is currently not implemented.
+Potential improvements include:
 
-Future testing can cover:
-
-* User authentication
-* Listing CRUD
-* Authorization
-* Review CRUD
-* Booking validation
-* Booking conflict detection
-* Image uploads
-* API/request validation
+* Automated testing with a dedicated test suite.
+* Payment gateway integration.
+* Email notifications for booking events.
+* Advanced property search and filtering.
+* Improved booking and availability management.
+* Administrative dashboard.
+* Better production monitoring and logging.
+* CI/CD pipeline for automated testing and deployment.
 
 ---
 
-## 🔮 Future Improvements
+## Learning Outcomes
 
-Potential improvements for future versions:
+Through Nivasa, I gained practical experience with:
 
-* 🔎 Advanced property search
-* 💰 Price-range filtering
-* 📅 Interactive availability calendar
-* 💳 Online payments using Razorpay
-* 📧 Booking confirmation emails
-* ⭐ Verified reviews from users with completed bookings
-* 📊 User dashboard
-* 🔔 Booking notifications
-* 🧪 Automated unit/integration tests
-* 🚦 API rate limiting
-* ⚡ Improved image optimization
-* 📱 Further mobile UI improvements
-* 🔐 Additional security hardening
+* Full-stack web application development.
+* Node.js and Express.js backend development.
+* MongoDB data modeling with Mongoose.
+* Authentication and authorization.
+* Session management.
+* Server-side validation.
+* Cloud-based image storage.
+* Geospatial map integration.
+* Backend booking logic and date-range conflict detection.
+* MVC application architecture.
+* Deployment of a full-stack application.
 
 ---
 
-## 🎯 Learning Outcomes
-
-Building Nivasa helped me gain practical experience with:
-
-* Full-stack web development
-* Node.js and Express.js
-* MVC architecture
-* RESTful routing
-* MongoDB and Mongoose
-* Authentication and authorization
-* Session management
-* Server-side validation
-* File uploads
-* Cloudinary integration
-* Interactive maps
-* Database relationships
-* Booking and date-conflict logic
-* Error handling
-* Git and GitHub
-* Cloud deployment
-
----
-
-## 👨‍💻 Author
+## Author
 
 **Suprit Naik**
 
-Computer Science Engineering Student
-
-GitHub:
-https://github.com/Supritnaik01
+GitHub: [Supritnaik01](https://github.com/Supritnaik01)
 
 ---
 
-## ⭐ Acknowledgements
+## License
 
-This project was developed as a full-stack web development project to understand how real-world web applications are designed, implemented, secured, and deployed.
-
-If you found the project useful, consider giving the repository a ⭐.
+This project is intended primarily for educational and portfolio purposes.
