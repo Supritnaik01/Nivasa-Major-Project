@@ -133,8 +133,6 @@ Nivasa
 └── package.json
 ```
 
-> The file and directory names above should match the current repository structure.
-
 ---
 
 ## Data Model
